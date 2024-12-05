@@ -1,0 +1,94 @@
+{
+	"name": "pl_aranchione_slases copy",
+	"properties": {
+		"activities": [
+			{
+				"name": "copy_aranchionerawtosales",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "raw/Arancione/"
+					},
+					{
+						"name": "Destination",
+						"value": "clensed/salesdata/"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"wildcardFileName": "*",
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings",
+							"skipLineCount": 0
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"validateDataConsistency": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "absaramraw",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ads_csv_clesnsed",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"variables": {
+			"vartest1": {
+				"type": "String"
+			},
+			"test": {
+				"type": "String"
+			},
+			"var1": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "02_execute"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-12-05T12:43:53Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

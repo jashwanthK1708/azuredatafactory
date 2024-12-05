@@ -1,0 +1,87 @@
+{
+	"name": "df_rawtoclenceCelestecopydev",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "abs_csv_raw_Celeste_ex3",
+						"type": "DatasetReference"
+					},
+					"name": "sourcecsvCeleste"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "abs_csv_clence_calest_ex3",
+						"type": "DatasetReference"
+					},
+					"name": "sinkCSVclencedCelest",
+					"rejectedDataLinkedService": {
+						"referenceName": "ls_rawtoclencesalesdev",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [
+				{
+					"name": "filtersummaryline"
+				},
+				{
+					"name": "aggregate1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          TransactionId as string,",
+				"          TransactionDate as string,",
+				"          OnlineRetailer as string,",
+				"          SalesMonth as string,",
+				"          SalesRegion as string,",
+				"          SalesCurrency as string,",
+				"          Title as string,",
+				"          Vintage as string,",
+				"          Variety as string,",
+				"          Score as string,",
+				"          ListPrice as string,",
+				"          Quantity as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> sourcecsvCeleste",
+				"sourcecsvCeleste filter(left(TransactionDate,21)!='Total Sales Quantity:') ~> filtersummaryline",
+				"filtersummaryline aggregate(groupBy(OnlineRetailer,",
+				"          SalesMonth,",
+				"          SalesRegion,",
+				"          SalesCurrency,",
+				"          Title,",
+				"          Vintage,",
+				"          ListPrice,",
+				"          Score,",
+				"          Variety),",
+				"     Quantity = sum(toInteger(Quantity))) ~> aggregate1",
+				"aggregate1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          SalesMonth as string,",
+				"          OnlineRetailer as string,",
+				"          Title as string,",
+				"          Vintage as string,",
+				"          Variety as string,",
+				"          Score as string,",
+				"          ListPrice as string,",
+				"          Quantity as string",
+				"     ),",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     outputAssertFailedRows: true,",
+				"     partitionBy('hash', 1)) ~> sinkCSVclencedCelest"
+			]
+		}
+	}
+}

@@ -1,0 +1,21 @@
+{
+	"name": "DestinationDataset_1ad",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adlsvnuword_dev",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "01basic"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "raw"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

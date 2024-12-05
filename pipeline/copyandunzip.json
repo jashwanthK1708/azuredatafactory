@@ -1,0 +1,84 @@
+{
+	"name": "copyandunzip",
+	"properties": {
+		"activities": [
+			{
+				"name": "copy-andunzip",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "landing//sampledata.zip"
+					},
+					{
+						"name": "Destination",
+						"value": "raw//"
+					}
+				],
+				"typeProperties": {
+					"source": {
+						"type": "BinarySource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true
+						},
+						"formatSettings": {
+							"type": "BinaryReadSettings",
+							"compressionProperties": {
+								"type": "ZipDeflateReadSettings",
+								"preserveZipFileNameAsFolder": false
+							}
+						}
+					},
+					"sink": {
+						"type": "BinarySink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "ls_adlsvnuword_dev",
+								"type": "LinkedServiceReference"
+							},
+							"path": "landing"
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SourceDataset_1ad",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DestinationDataset_1ad",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "01basic"
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-12-05T09:34:33Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

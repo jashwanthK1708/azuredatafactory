@@ -1,0 +1,27 @@
+{
+	"name": "ads_csv_clesnsed",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_adlsvnuword_dev",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "02_excercise"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "salesdata",
+				"fileSystem": "clensed"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

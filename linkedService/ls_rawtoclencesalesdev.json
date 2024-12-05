@@ -1,0 +1,19 @@
+{
+	"name": "ls_rawtoclencesalesdev",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://safinal01.dfs.core.windows.net/",
+			"accountKey": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "kv_vardis_json",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "adlsvinowold"
+			}
+		}
+	}
+}

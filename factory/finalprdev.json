@@ -1,0 +1,17 @@
+{
+	"name": "finalprdev",
+	"properties": {
+		"globalParameters": {
+			"globalparm": {
+				"type": "string",
+				"value": "kavya"
+			}
+		}
+	},
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "e64baf83-c710-40eb-bca4-dbf4920d05cf",
+		"tenantId": "d286ebec-1fc2-48d8-91ea-c1629c103aa2"
+	}
+}
